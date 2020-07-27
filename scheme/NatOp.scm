@@ -7,8 +7,8 @@
 ;; TODO: fold
 
 ;; binary ops: n and m stand for nat vars in below
-;; add n m = n succ m
-(define (add n m) (n succ m))
+;; add n m = n incr m
+(define (add n m) (n incr m))
 ;; mul n m = n (add m) zero
 (define (mul n m) (n ((curry add) m) zero))
 ;; pow n zero = one

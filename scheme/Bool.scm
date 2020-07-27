@@ -9,8 +9,8 @@
 (define false (flip const)) ;; (define false (lambda (x y) y))
 
 
-;; convert
-;; convert between boolean values (b values, like #t or #f) 
+;; transform
+;; transform between boolean values (b values, like #t or #f) 
 ;; and functional boolean values (fb values, like true or false)
 
 ;; toBool: fb 2 b
