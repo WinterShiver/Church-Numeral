@@ -10,7 +10,9 @@
 ;; flip
 
 (define (flip f)
-  (lambda (x y) (f y x))
+  (lambda (x)
+    (lambda (y) ((f y) x))
+  )
 )
 
 ;; props:
@@ -18,7 +20,12 @@
 
 ;; const
 
-(define (const x y) x)
+(define const
+  (lambda (x)
+    (lambda (y) x)
+  )
+)
 
 ;; props:
-;; ((const id x) y) == y == ((filp const) x y)
+;; (const id) == \x -> \y -> y == (filp const)
+

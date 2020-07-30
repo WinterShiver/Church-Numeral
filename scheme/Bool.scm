@@ -14,6 +14,6 @@
 ;; and functional boolean values (fb values, like true or false)
 
 ;; toBool: fb 2 b
-(define (toBool fb) (fb #t #f))
+(define (toBool fb) ((fb #t) #f))
 ;; fromBool: b 2 fb
 (define (fromBool b) (if b true false))
