@@ -4,10 +4,12 @@
 -- {-# LANGUAGE NoMonomorphismRestriction #-}
 -- {-# LANGUAGE RankNTypes #-}
 
-{-# LANGUAGE LambdaCase #-}
+{-# LANGUAGE AllowAmbiguousTypes #-}
 
 import Control.Applicative (liftA2)
 import Data.Function ((&))
+
+import Peano
 
 -- Part 1. Defining church numbers
 
@@ -45,7 +47,6 @@ twelve = incr eleven
 ch2num :: Integral a => Church a -> a
 ch2num ch = ch (1+) 0
 
-
 num2ch :: Integral a1 => a1 -> Church a
 num2ch n = case compare n 0 of
   GT -> incr . num2ch $ pred n
@@ -75,31 +76,30 @@ pow = (&)
 decr :: Church ((a -> a) -> a) -> Church a
 decr n s z = ($ id) $ n ((&) . ($ s)) (const z) -- from: decr n s z = n (\g h -> h (g s)) (const z) id
 
-
--- not able to construct sub n m = n decr m
-
+-- sub : unable to construct the type of `sub`
+sub n m = m decr n -- unable to evaluate
 
 
 -- Part 3. Peano numbers (Nats)
--- Basic oprs, transformation between chs and nats, and so on
-
-data Nat = Zero | Succ Nat deriving (Show)
-
-fold :: (a -> a) -> a -> Nat -> a
-fold s z Zero = z
-fold s z (Succ n) = s (fold s z n)
-
--- fold s z n = (nat2ch n) s z
-
-padd = fold Succ -- padd n m = fold Succ n m
-pmul = ($ Zero). fold . padd -- pmul n m = fold (padd n) Zero m
-ppow = ($ Succ Zero) . fold . pmul -- ppow n m = fold (pmul n) (Succ Zero) m
+-- Transformation between chs and nats, and so on
 
 nat2ch = fold incr zero -- nat2ch n = fold incr zero n
 ch2nat = ($ Zero) . ($ Succ) -- ch2nat ch = ch Succ Zero
 
-pincr = Succ
-pdecr = \case 
-  Zero -> Zero
-  Succ n -> n
+fold' s z n = nat2ch n s z -- Redefining Peano.fold
+
+
+-- Part 4. Making comparison (by judging the difference)
+
+isZero :: Church Bool -> Bool
+isZero n = n (const False) True
+
+notZero :: Church Bool -> Bool
+notZero = not . isZero
+
+-- comp : unable to construct type; unable to evaluate
+-- comp n m 
+--   | notZero $ sub n m = GT
+--   | notZero $ sub m n = LT
+--   | otherwise = EQ
 
