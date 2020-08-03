@@ -4,6 +4,8 @@
 {-# LANGUAGE InstanceSigs #-}
 {-# LANGUAGE RankNTypes #-}
 
+module ChurchAdvanced where
+
 import Control.Applicative (liftA2)
 import Data.Function ((&))
 
@@ -22,7 +24,7 @@ zero :: Church
 zero = Ch (\s z -> z)  
 
 incr :: Church -> Church
-incr (Ch n) = Ch (\s -> s . n s) 
+incr (Ch n) = Ch (\s z -> s (n s z)) 
 
 -- Frequently used church values
 

@@ -1,3 +1,5 @@
+module Bool where
+
 -- Functional definition of booleans
 
 true = const -- true = \x y -> x
