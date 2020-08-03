@@ -6,6 +6,8 @@
 
 {-# LANGUAGE AllowAmbiguousTypes #-}
 
+module Church where
+
 import Control.Applicative (liftA2)
 import Data.Function ((&))
 
