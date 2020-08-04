@@ -159,15 +159,29 @@ decr1c ch = decr1c' ch Just Nothing
 decr'1c ch = decr1c' ch id zero
 ```
 
-总之，我们可以用以下方式实现纯lambda定义`pred`：
+综上所述，我们可以用以下方式实现纯lambda定义`pred`：
 
 ```haskell
-incr1c = \ks kf -> ks (c incr zero) 
+incr1c c = \ks kf -> ks (c incr zero) 
 decr1c' ch = ch incr1c (\ks kf -> kf)
 decr1c ch = decr1c' ch Just Nothing 
 -- decr1c zero = Nothing, decr1c one = Just zero, ..
 decr'1c ch = decr1c' ch id zero
 -- decr'1c zero = zero, decr'1c one = zero, decr'1c two = one, ..
+```
+
+`decr'1c`可以作为纯lambda表达式在scheme中实现，代码可见于`Pred.scm`，此处不再粘贴，自己去看原文件。效果如下：
+
+```bash
+> (load "Pred.scm")
+> (toInt (decr1c zero))
+0
+> (toInt (decr1c one))
+0
+> (toInt (decr1c two))
+1
+> (toInt (decr1c three))
+2
 ```
 
 在haskell中，为了和类型系统做妥协，我们还是需要使用包裹类型，代码最终是这个样子：
@@ -210,12 +224,12 @@ Just 4
 ```
 
 ```haskell
-*Pred> runCh (decr'1c zero) (*2) 10
-10
-*Pred> runCh (decr'1c one) (*2) 10
-10
-*Pred> runCh (decr'1c two) (*2) 10
-20
-*Pred> runCh (decr'1c three) (*2) 10
-40
+*Pred> runCh (decr'1c zero) (*2) 1
+1
+*Pred> runCh (decr'1c one) (*2) 1
+1
+*Pred> runCh (decr'1c two) (*2) 1
+2
+*Pred> runCh (decr'1c three) (*2) 1
+4
 ```
