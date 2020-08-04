@@ -2,7 +2,7 @@
 
 This post makes you understand the details of Church Numeral, including the declaration and illustration of its design and relevant proof in the definition. This post only contains the crucial information for constructing the system of Church Numeral, it could be seen as a complection and a summary for [^1]. 
 
-All lambda expressions are written in Haskell style, but they may not be runable Haskell code. See implementation in `Church.hs` and `ChurchAdvanced.hs`.
+All lambda expressions are written in Haskell style, but they may not be runable Haskell code. See implementation in  [Church.hs](../code/Church.hs) and [ChurchAdvanced.hs](../code/ChurchAdvanced.hs).
 
 # Church numeral: functionally defining natural numbers
 
@@ -115,7 +115,7 @@ Defining comparison by judging the value of `sub n m` and `sub m n`.
 
 # The type problem
 
-In `Church.hs` we are not able to construct a valid type for `sub` (see the type signature of `add`, `mul`, `pow`, `decr` and consider why). As said in [^1], we should construct a wrapped type `newtype Church = Ch (forall a. (a -> a) -> a -> a)`. The new implementation is in `ChurchAdvanced.hs`.
+In [Church.hs](../code/Church.hs) we are not able to construct a valid type for `sub` (see the type signature of `add`, `mul`, `pow`, `decr` and consider why). As said in [^1], we should construct a wrapped type `newtype Church = Ch (forall a. (a -> a) -> a -> a)`. The new implementation is in [ChurchAdvanced.hs](../code/ChurchAdvanced.hs).
 
 # References
 

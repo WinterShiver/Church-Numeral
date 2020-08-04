@@ -1,4 +1,4 @@
-# 在Church Numeral中表示列表和元组
+# 用函数（纯lambda表达式）表示列表和元组
 
 ```haskell
 cons x y f = f x y

@@ -17,7 +17,7 @@ incr :: Church -> Church
 incr (Ch n) = Ch (\s z -> s (n s z)) 
 ```
 
-以上是本文代码实现中使用的`Church`数据类型。本文对应的代码实现是`Pred.hs`，为了Haskell代码能够通过type check，在代码实现中使用这种基于包裹类型的`Church`类型，相应地牺牲了一定的纯粹性。`Pred.scm`使用Scheme语言，对`decr1c`这个可以用纯lambda实现的函数进行了实现。
+以上是本文代码实现中使用的`Church`数据类型。本文对应的代码实现是[Pred.hs](../code/Pred.hs)，为了Haskell代码能够通过type check，在代码实现中使用这种基于包裹类型的`Church`类型，相应地牺牲了一定的纯粹性。[Pred.scm](../code/Pred.scm)使用Scheme语言，对`decr1c`这个可以用纯lambda实现的函数进行了实现。
 
 # 从-1开始数：用特殊值表示-1
 
